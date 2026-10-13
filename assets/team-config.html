@@ -1,0 +1,128 @@
+<div id="agent-team-config">
+<style>
+#agent-team-config {color-scheme:light dark;--tc-bg:light-dark(#f5f6fa,#15171d);--tc-panel:light-dark(#fff,#20232b);--tc-text:light-dark(#202638,#eef0f6);--tc-muted:light-dark(#566077,#b0b8cb);--tc-line:light-dark(#dce1ec,#414959);--tc-accent:light-dark(#3e50bd,#adbbff);--tc-tint:light-dark(#edf0ff,#2b3454);--tc-error:light-dark(#b42732,#ffacb0);background:var(--tc-bg);color:var(--tc-text);padding:24px;border-radius:20px;font-family:system-ui,sans-serif;}
+#agent-team-config * {box-sizing:border-box;min-width:0;}
+#agent-team-config h2,#agent-team-config h3,#agent-team-config p {margin:0;}
+#agent-team-config header {display:flex;justify-content:space-between;gap:14px;align-items:start;margin-bottom:22px;flex-wrap:wrap;}
+#agent-team-config .tc-kicker {color:var(--tc-accent);margin-bottom:8px;}
+#agent-team-config .tc-muted {color:var(--tc-muted);}
+#agent-team-config .tc-status {border:1px solid var(--tc-line);border-radius:20px;padding:6px 12px;background:var(--tc-panel);}
+#agent-team-config section {margin:22px 0;}
+#agent-team-config .tc-section-title {display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+#agent-team-config .tc-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+#agent-team-config [data-restore] {margin-top:20px;}
+#agent-team-config .tc-presets {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+#agent-team-config button {font:inherit;color:var(--tc-text);background:var(--tc-panel);border:1px solid var(--tc-line);border-radius:10px;padding:10px 14px;cursor:pointer;}
+#agent-team-config button:disabled {opacity:.55;cursor:not-allowed;}
+#agent-team-config .tc-preset {text-align:left;display:grid;gap:7px;}
+#agent-team-config .tc-preset[aria-pressed=true] {border-color:var(--tc-accent);background:var(--tc-tint);}
+#agent-team-config .tc-panel {background:var(--tc-panel);border:1px solid var(--tc-line);border-radius:12px;padding:16px;}
+#agent-team-config .tc-members {display:grid;gap:12px;}
+#agent-team-config .tc-member-head {display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;}
+#agent-team-config label {display:grid;gap:7px;color:var(--tc-muted);}
+#agent-team-config input,#agent-team-config select,#agent-team-config textarea {width:100%;font:inherit;color:var(--tc-text);background:var(--tc-panel);border:1px solid var(--tc-line);border-radius:8px;padding:10px;}
+#agent-team-config textarea {resize:vertical;min-height:76px;}
+#agent-team-config .tc-row {display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+#agent-team-config .tc-primary {background:var(--tc-accent);color:light-dark(#fff,#172048);border-color:var(--tc-accent);}
+#agent-team-config .tc-errors {color:var(--tc-error);white-space:pre-wrap;overflow-wrap:anywhere;margin-top:12px;}
+#agent-team-config details {margin-top:16px;}
+#agent-team-config summary {cursor:pointer;color:var(--tc-muted);padding:8px 0;}
+#agent-team-config .tc-output {margin-top:18px;}
+#agent-team-config [data-output] {min-height:180px;}
+#agent-team-config [data-map] {overflow-wrap:anywhere;margin:10px 0;color:var(--tc-accent);}
+#agent-team-config [data-note] {margin-top:10px;}
+#agent-team-config .tc-table {width:100%;border-collapse:collapse;table-layout:fixed;margin-top:12px;}
+#agent-team-config .tc-table th,#agent-team-config .tc-table td {text-align:left;vertical-align:top;padding:10px 6px;border-bottom:1px solid var(--tc-line);overflow-wrap:anywhere;}
+#agent-team-config .tc-table th:nth-child(3) {width:20%;}
+#agent-team-config [data-summary-meta] {margin-top:8px;}
+@media(max-width:640px){#agent-team-config{padding:16px;}#agent-team-config .tc-presets{grid-template-columns:repeat(2,minmax(0,1fr));}#agent-team-config .tc-grid{grid-template-columns:1fr;}}
+@media(max-width:640px){#agent-team-config .tc-table thead{display:none;}#agent-team-config .tc-table tbody,#agent-team-config .tc-table tr{display:block;}#agent-team-config .tc-table tr{padding:12px 0;border-bottom:1px solid var(--tc-line);}#agent-team-config .tc-table td{display:grid;grid-template-columns:76px minmax(0,1fr);gap:8px;border:0;padding:5px 0;}#agent-team-config .tc-table td::before{content:attr(data-label);color:var(--tc-muted);}}
+@media(max-width:380px){#agent-team-config .tc-presets{grid-template-columns:1fr;}}
+</style>
+<header><div><div class="tc-kicker"><span data-edition>AGENT TEAM · 对话内配置</span></div><h2>组建你的协作团队</h2><p class="tc-muted">作者 Glock</p></div><span class="tc-status" data-submit-status role="status">配置草稿 · 未启动</span></header>
+<div class="tc-grid"><label>项目名称<input data-project placeholder="例如：模型代码审核" maxlength="160"></label><label>配置入口<select data-mode><option value="new">新建团队</option><option value="restore">恢复项目配置</option></select></label></div>
+<div data-restore hidden class="tc-panel"><label>粘贴已保存的 team 配置 JSON<textarea data-import placeholder="粘贴配置后读取；任务与升级记录由主 Agent 继续核对"></textarea></label><button type="button" data-load>读取配置</button></div>
+<section><div class="tc-section-title"><h3>01 · 选择团队方案</h3><span class="tc-muted">六套分工方案</span></div><div class="tc-presets" data-presets></div><p data-note class="tc-muted">点击方案查看优势与执行边界。</p></section>
+<section class="tc-panel"><div class="tc-section-title"><h3>我的自定义方案</h3></div><div class="tc-grid"><label>已保存的方案<select data-custom-list><option value="">请选择</option></select></label><label>方案名称<input data-custom-name placeholder="例如：我的科研审核团队" maxlength="80"></label></div><div class="tc-row" style="margin-top:12px"><button type="button" data-custom-use>加载方案</button><button type="button" data-custom-save>保存方案</button></div></section>
+<div data-replace hidden class="tc-panel"><p>替换当前成员和任务？项目目标会保留。</p><div class="tc-row"><button type="button" data-replace-yes>替换成员</button><button type="button" data-replace-no>保留当前团队</button></div></div>
+<section><div class="tc-section-title"><h3>02 · 配置成员</h3><button type="button" data-add>＋ 添加成员</button></div><div data-members class="tc-members"></div></section>
+<section><div class="tc-section-title"><h3>03 · 分配任务</h3></div><div class="tc-grid"><label>派活方式<select data-assignment><option value="">请选择</option><option value="auto">主 Agent 自动拆分</option><option value="manual">我按成员派活</option></select></label><label>最大并发<input data-concurrency type="number" min="1" value="2"></label><label>总体目标<textarea data-goal placeholder="可以先配置，稍后再补充任务"></textarea></label><label>输入材料／项目记录位置<textarea data-inputs placeholder="填写附件名称或可访问位置；页面不会上传文件"></textarea></label></div><p data-map></p></section>
+<details><summary>执行与保护规则</summary><div class="tc-panel"><p>展示分工后，等待你说“开始”。</p><p>同任务第二次提高强度，或团队30分钟内第三次提高前，申请同意。</p><p>失败后最多重试两次；完成后先验收；跨对话保留记录。</p><p class="tc-muted">恢复配置不代表恢复旧进程，主 Agent 需核对原始记录。</p></div></details>
+<div class="tc-errors" data-errors role="alert"></div>
+<div class="tc-row" style="margin-top:20px"><button type="button" class="tc-primary" data-generate>完成配置</button><span class="tc-muted" data-delivery-note>保存后等待“开始”</span></div>
+<section data-summary hidden tabindex="-1" aria-labelledby="team-summary-title"><h3 id="team-summary-title">配置团队表</h3><p data-summary-meta class="tc-muted" role="status"></p><table class="tc-table" aria-label="本次配置的团队分工"><thead><tr><th scope="col">成员</th><th scope="col">职责</th><th scope="col">模型</th><th scope="col">思考程度</th><th scope="col">当前任务</th><th scope="col">修改范围</th><th scope="col">依赖</th></tr></thead><tbody data-summary-body></tbody></table></section>
+<div data-result class="tc-output" hidden><label>手动导入内容<textarea data-output readonly aria-label="配置提交内容"></textarea></label><div class="tc-row"><button type="button" data-copy>复制导入内容</button><button type="button" data-download hidden>导出配置 JSON</button><span data-copy-status role="status"></span></div><p class="tc-muted" data-fallback-note></p></div>
+<script type="application/json" id="agent-team-context">__TEAM_CONTEXT__</script>
+<script>
+(()=>{
+'use strict';
+const root=document.getElementById('agent-team-config'), ctx=JSON.parse(document.getElementById('agent-team-context').textContent);
+const q=s=>root.querySelector(s), capabilities=ctx.capabilities||{}, cap=ctx.max_concurrency||2;
+const browserMode=ctx.presentation_mode==='browser';
+q('[data-edition]').textContent=browserMode?'AGENT TEAM · 浏览器配置':'AGENT TEAM · 对话内配置';q('[data-download]').hidden=!browserMode;
+if(browserMode){q('[data-generate]').textContent='生成导入配置';q('[data-custom-save]').textContent='生成方案导入内容';q('[data-delivery-note]').textContent='离线页面 · 需导入对话保存';}
+const presets=ctx.presets;let members=[], next=1, selected='', dirty=false, revision=1, projectId=null, pendingPreset=null, generatedConfig=null, customSource=null, submitting=false, editVersion=0;
+const make=(tag,text)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;return el;};
+const memberName=id=>id.replace(/^M(?=[1-9][0-9]*$)/,'成员');
+const memberId=name=>name.replace(/^成员(?=[1-9][0-9]*$)/,'M');
+function invalidate(){generatedConfig=null;q('[data-result]').hidden=true;q('[data-summary]').hidden=true;q('[data-copy-status]').textContent='';q('[data-submit-status]').textContent='配置草稿 · 未启动';editVersion++;dirty=true;}
+function showTeamTable(payload){
+ const labels=['成员','职责','模型','思考程度','当前任务','修改范围','依赖'];
+ const body=q('[data-summary-body]');body.replaceChildren();
+ for(const m of payload.members){const row=make('tr');const values=[memberName(m.id),m.role,m.model,m.effort,m.task||'待分配',m.scope,m.dependencies.map(memberName).join('、')||'无'];values.forEach((value,index)=>{const cell=make('td',value);cell.dataset.label=labels[index];row.append(cell);});body.append(row);}
+ q('[data-summary-meta]').textContent=(payload.assignment==='auto'?'自动拆分':'手动派活')+' · 最大并发 '+payload.max_concurrency+' · 等待“开始” · 配置预览，未启动';
+ q('[data-summary]').hidden=false;q('[data-summary]').scrollIntoView({block:'start'});q('[data-summary]').focus({preventScroll:true});
+}
+async function submit(prompt,title){
+ if(submitting)return;
+ const version=editVersion;
+ q('[data-output]').value=prompt;
+ const send=window.openai?.sendFollowUpMessage;
+ if(browserMode||typeof send!=='function'){
+  q('[data-result]').hidden=false;
+  q('[data-fallback-note]').textContent=browserMode?'离线浏览器页无法提交到对话。请导入此内容，由主 Agent 保存。':'当前宿主未提供提交接口。请导入此内容，由主 Agent 保存。';
+  q('[data-submit-status]').textContent='待手动导入 · 未保存';return;
+ }
+ submitting=true;q('[data-generate]').disabled=true;q('[data-custom-save]').disabled=true;q('[data-result]').hidden=true;q('[data-submit-status]').textContent='正在提交';
+ try{
+  await window.openai.sendFollowUpMessage({prompt,title});
+  if(version===editVersion)q('[data-submit-status]').textContent='已发起提交 · 保存结果见对话';
+ }catch(_){
+  if(version===editVersion){q('[data-submit-status]').textContent='提交失败 · 未保存';q('[data-errors]').textContent='提交失败，可再次点击重试，或手动导入。';q('[data-result]').hidden=false;q('[data-fallback-note]').textContent='输入已保留。';}
+ }finally{submitting=false;q('[data-generate]').disabled=false;q('[data-custom-save]').disabled=false;}
+}
+function field(label,value,onchange,type='input',values=[]){const wrap=make('label',label),el=make(type);if(type==='select'){for(const v of values){const o=make('option',v);o.value=v;el.append(o);}if(!values.includes(value)){const o=make('option',value+'（不可用）');o.value=value;el.append(o);}}el.value=value||'';el.addEventListener(type==='select'?'change':'input',()=>{onchange(el.value);invalidate();});wrap.append(el);return wrap;}
+function draw(){const host=q('[data-members]');host.replaceChildren();for(const m of members){const box=make('article');box.className='tc-panel';const head=make('div');head.className='tc-member-head';head.append(make('strong',memberName(m.id)+' · 已配置未启动'));const remove=make('button','移除');remove.type='button';remove.setAttribute('aria-label','移除 '+memberName(m.id));remove.onclick=()=>{members=members.filter(x=>x.id!==m.id);invalidate();draw();};head.append(remove);box.append(head);const grid=make('div');grid.className='tc-grid';grid.append(field('角色',m.role,v=>m.role=v),field('模型',m.model,v=>{m.model=v;m.effort=(capabilities[v]||[]).includes(m.effort)?m.effort:(capabilities[v]||[])[0]||'';draw();},'select',Object.keys(capabilities)),field('推理强度',m.effort,v=>m.effort=v,'select',capabilities[m.model]||[]),field('修改范围（只读或明确文件）',m.scope,v=>m.scope=v),field('具体任务',m.task,v=>m.task=v,'textarea'),field('前置成员（例如 成员1，多项用逗号）',m.dependencies.map(memberName).join('，'),v=>{m.dependencies=v.split(/[,，\s]+/).filter(Boolean).map(memberId);updateMap();}));box.append(grid);host.append(box);}updateMap();}
+function updateMap(){q('[data-map]').textContent=members.map(m=>m.dependencies.length?m.dependencies.map(memberName).join('、')+' 完成 → '+memberName(m.id):memberName(m.id)+' 可独立安排').join('；');}
+function applyPreset(p,force=false){if(dirty&&!force){pendingPreset=p;q('[data-replace]').hidden=false;return;}q('[data-replace]').hidden=true;pendingPreset=null;if(p.kind==='agent_team_preset'){loadCustom(p);return;}customSource=null;selected=p.id;members=p.members.map(m=>({...m,id:'M'+next++,scope:'只读',task:'',dependencies:[]}));if(p.order==='architecture')members.slice(1).forEach(m=>m.dependencies=[members[0].id]);if(p.order==='review')members[1].dependencies=[members[0].id];if(p.order==='diagnosis')members[2].dependencies=members.slice(0,2).map(m=>m.id);q('[data-note]').textContent=p.benefit+' · '+p.boundary;root.querySelectorAll('.tc-preset').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.preset===selected)));q('[data-concurrency]').value=Math.min(members.length,cap);invalidate();draw();}
+for(const p of presets){const b=make('button');b.type='button';b.className='tc-preset';b.dataset.preset=p.id;b.setAttribute('aria-pressed','false');b.append(make('strong',p.id+' · '+p.name),...p.members.map(m=>make('span',m.model.replace('gpt-','')+' · '+m.effort)),make('span',p.benefit));const unavailable=[...new Set(p.members.filter(m=>!capabilities[m.model]?.includes(m.effort)).map(m=>m.model.replace('gpt-','')))];if(unavailable.length){const note=make('span','本环境不可用：'+unavailable.join('、'));note.className='tc-errors';b.append(note);}b.onclick=()=>applyPreset(p);q('[data-presets]').append(b);}
+q('[data-replace-yes]').onclick=()=>{if(pendingPreset)applyPreset(pendingPreset,true);};q('[data-replace-no]').onclick=()=>{pendingPreset=null;q('[data-replace]').hidden=true;};q('[data-concurrency]').max=cap;
+q('[data-add]').onclick=()=>{const model=Object.keys(capabilities)[0];if(!model){q('[data-errors]').textContent='当前没有已核实的模型选项。';return;}members.push({id:'M'+next++,role:'新成员',model,effort:capabilities[model][0],scope:'只读',task:'',dependencies:[]});invalidate();draw();};
+for(const s of ['[data-project]','[data-assignment]','[data-concurrency]','[data-goal]','[data-inputs]'])q(s).addEventListener('input',invalidate);
+q('[data-mode]').onchange=()=>{q('[data-restore]').hidden=q('[data-mode]').value!=='restore';invalidate();};
+function restore(raw,mode='restore'){if(raw.schema_version!==1||!Array.isArray(raw.members)||!raw.members.length||raw.members.length>30)throw Error('需要 schema_version=1 且包含1–30名成员的配置。');const ids=new Set();const clean=raw.members.map(m=>{if(typeof m.id!=='string'||!/^M[1-9][0-9]*$/.test(m.id)||ids.has(m.id))throw Error('成员编号重复或格式错误。');ids.add(m.id);for(const k of ['role','model','effort'])if(typeof m[k]!=='string')throw Error('成员缺少 '+k);if(m.dependencies!==undefined&&(!Array.isArray(m.dependencies)||m.dependencies.some(x=>typeof x!=='string')))throw Error('依赖格式错误');return {id:m.id,role:m.role,model:m.model,effort:m.effort,scope:typeof m.scope==='string'?m.scope:'只读',task:typeof m.task==='string'?m.task:'',dependencies:m.dependencies||[]};});members=clean;next=Math.max(...members.map(m=>Number(m.id.slice(1))))+1;selected=raw.preset||'';customSource=raw.custom_preset||null;projectId=typeof raw.project_id==='string'?raw.project_id:null;revision=Number.isInteger(raw.config_revision)?raw.config_revision+1:1;q('[data-project]').value=raw.project_name||'';q('[data-goal]').value=raw.goal||'';q('[data-inputs]').value=raw.inputs||'';q('[data-assignment]').value=['auto','manual'].includes(raw.assignment)?raw.assignment:'';q('[data-concurrency]').value=Number.isInteger(raw.max_concurrency)?raw.max_concurrency:2;q('[data-mode]').value=mode;q('[data-restore]').hidden=mode!=='restore';q('[data-note]').textContent='已读取配置草稿；任务历史、升级次数和验收状态仍需主 Agent 核对。';root.querySelectorAll('.tc-preset').forEach(b=>b.setAttribute('aria-pressed','false'));invalidate();draw();}
+q('[data-load]').onclick=()=>{try{const raw=JSON.parse(q('[data-import]').value);if(raw.kind==='agent_team_preset')applyPreset(raw);else restore(raw);q('[data-errors]').textContent='';}catch(e){q('[data-errors]').textContent=e.message;}};
+function errors(requireProject=true){const out=[];if(requireProject&&!q('[data-project]').value.trim())out.push('请填写项目名称。');if(!q('[data-assignment]').value)out.push('请选择自动拆分或手动派活。');if(!members.length)out.push('请选择团队或添加成员。');const n=Number(q('[data-concurrency]').value);if(!Number.isInteger(n)||n<1||n>cap)out.push('并发数须为1–'+cap+'。');const ids=new Set(members.map(m=>m.id));for(const m of members){if(!m.role.trim()||!m.scope.trim())out.push(memberName(m.id)+' 的角色和修改范围不能为空。');if(!capabilities[m.model]?.includes(m.effort))out.push(memberName(m.id)+' 的模型或强度当前不可用，请调整。');if(m.dependencies.some(d=>!ids.has(d)||d===m.id))out.push(memberName(m.id)+' 的依赖不存在或指向自己。');}const visiting=new Set(),done=new Set(),byId=new Map(members.map(m=>[m.id,m]));function visit(id){if(visiting.has(id))return true;if(done.has(id)||!byId.has(id))return false;visiting.add(id);for(const d of byId.get(id).dependencies)if(visit(d))return true;visiting.delete(id);done.add(id);return false;}if(members.some(m=>visit(m.id)))out.push('任务依赖形成循环，请调整。');return [...new Set(out)];}
+q('[data-generate]').onclick=()=>{if(submitting)return;const problems=errors();q('[data-errors]').textContent=problems.join('\n');if(problems.length){q('[data-result]').hidden=true;q('[data-summary]').hidden=true;return;}const payload={schema_version:1,config_revision:revision,project_id:projectId,project_name:q('[data-project]').value.trim(),mode:q('[data-mode]').value,preset:selected,custom_preset:customSource,assignment:q('[data-assignment]').value,start_mode:'wait_for_start',max_concurrency:Number(q('[data-concurrency]').value),goal:q('[data-goal]').value,inputs:q('[data-inputs]').value,members,capabilities_checked_at:ctx.checked_at||null};generatedConfig=payload;showTeamTable(payload);const text='使用 $agent-team-setup。以下是我点击完成配置后提交的配置。请在本轮核对现有项目记录，合并并持久保存，直接返回配置团队表和简短保存结果；恢复项目时同时展示简短交接摘要。派活提示词由主 Agent 自动准备，按需查看。等待我说“开始”再执行。不得重置已有任务、升级记录或验收状态。只有真实校验阻碍才询问必要信息，保存成功后报告结果。\n\n'+JSON.stringify(payload,null,2);return submit(text,'保存团队配置');};
+function loadCustom(p){
+ const keep={project:q('[data-project]').value,goal:q('[data-goal]').value,inputs:q('[data-inputs]').value,mode:q('[data-mode]').value,id:projectId,revision};
+ const mapping=new Map((p.members||[]).map(m=>[m.id,'M'+next++]));
+ const draft={...p,members:(p.members||[]).map(m=>({...m,id:mapping.get(m.id),task:'',dependencies:(m.dependencies||[]).map(d=>mapping.get(d)||d)}))};
+ restore(draft);projectId=keep.id;revision=keep.revision;q('[data-project]').value=keep.project;q('[data-goal]').value=keep.goal;q('[data-inputs]').value=keep.inputs;q('[data-mode]').value=keep.mode;q('[data-restore]').hidden=keep.mode!=='restore';
+ customSource={preset_id:p.preset_id||null,name:p.name||'',preset_version:p.preset_version||null};selected='custom';q('[data-custom-name]').value=p.name||'';q('[data-note]').textContent='已加载方案草稿。请核对本项目修改范围、材料与任务；尚未启动。';invalidate();draw();
+}
+const customs=Array.isArray(ctx.custom_presets)?ctx.custom_presets:[];
+for(const p of customs){const o=make('option',p.name+' · v'+p.preset_version);o.value=p.preset_id;q('[data-custom-list]').append(o);}
+q('[data-custom-use]').onclick=()=>{const p=customs.find(x=>x.preset_id===q('[data-custom-list]').value);if(!p){q('[data-errors]').textContent='请选择已保存方案；可让主 Agent 读取方案列表后重新打开页面。';return;}applyPreset(p);};
+q('[data-custom-name]').addEventListener('input',invalidate);
+q('[data-custom-save]').onclick=()=>{if(submitting)return;const problems=errors(false),name=q('[data-custom-name]').value.trim();if(!name||name.length>80)problems.push('请填写1–80字的方案名称。');q('[data-errors]').textContent=problems.join('\n');if(problems.length){generatedConfig=null;q('[data-result]').hidden=true;return;}
+ const previous=customs.find(p=>p.name.toLowerCase()===name.toLowerCase());
+ generatedConfig={schema_version:1,kind:'agent_team_preset',name,preset_id:previous?.preset_id||null,preset_version:previous?.preset_version||null,assignment:q('[data-assignment]').value,start_mode:'wait_for_start',max_concurrency:Number(q('[data-concurrency]').value),members:members.map(m=>({id:m.id,role:m.role,model:m.model,effort:m.effort,scope:m.scope,task:'',dependencies:[...m.dependencies]}))};
+ return submit('使用 $agent-team-setup。请将以下团队配置持久保存为命名自定义方案，供以后调用。如果同名方案已存在，请先展示差异并询问是否更新；仅保存方案，不启动成员，不覆盖项目任务或升级历史。\n\n'+JSON.stringify(generatedConfig,null,2),'保存团队方案');
+};
+q('[data-download]').onclick=()=>{if(!generatedConfig)return;const blob=new Blob([JSON.stringify(generatedConfig,null,2)],{type:'application/json;charset=utf-8'});const url=URL.createObjectURL(blob);const a=make('a');a.href=url;a.download=generatedConfig.kind==='agent_team_preset'?'agent-team-preset.json':'agent-team-config.json';root.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+q('[data-copy]').onclick=async()=>{const el=q('[data-output]');try{if(!navigator.clipboard?.writeText)throw Error('clipboard unavailable');await navigator.clipboard.writeText(el.value);q('[data-copy-status]').textContent='已复制，请粘贴发送到对话。';}catch(_){el.focus();el.select();q('[data-copy-status]').textContent='请手动复制已选中的内容，再粘贴发送。';}};
+if(ctx.initial_team){try{restore(ctx.initial_team,ctx.initial_mode==='restore'?'restore':'new');}catch(e){q('[data-errors]').textContent=e.message;}}else draw();
+})();
+</script>
+</div>

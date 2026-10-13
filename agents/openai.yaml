@@ -1,0 +1,13 @@
+interface:
+  display_name: 多智能体任务配置
+  short_description: 双入口配置团队，命名保存自定义方案并跨对话复用，保留任务与验收规则
+  default_prompt: 使用 $agent-team-setup，打开团队配置页面，让我选择预设、编辑成员和分配任务，生成分工后等待开始。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
